@@ -14,3 +14,15 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+/.env
+/.env.test
+/.idea/.gitignore
+/bin/console
+/.idea/CoupDPot.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/php.xml
+/bin/phpunit
+/phpunit.xml.dist
+/.idea/symfony2.xml
+/.idea/vcs.xml
