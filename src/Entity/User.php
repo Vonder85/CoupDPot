@@ -59,6 +59,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=100)
      */
     private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $photo;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -126,6 +132,23 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param mixed $photo
+     */
+    public function setPhoto($photo): void
+    {
+        $this->photo = $photo;
+    }
+
 
     /**
      * @return mixed
