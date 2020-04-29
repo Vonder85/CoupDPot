@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -220,6 +221,55 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+        $this->sells = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="user")
+     */
+    private $products;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProducts(): ArrayCollection
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param ArrayCollection $products
+     */
+    public function setProducts(ArrayCollection $products): void
+    {
+        $this->products = $products;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Sell", mappedBy="user")
+     */
+    private $sells;
+
+    /**
+     * @return mixed
+     */
+    public function getSells()
+    {
+        return $this->sells;
+    }
+
+    /**
+     * @param mixed $sells
+     */
+    public function setSells($sells): void
+    {
+        $this->sells = $sells;
+    }
+
 
     public function getSalt(){}
 
