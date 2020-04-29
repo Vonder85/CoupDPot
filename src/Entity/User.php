@@ -3,11 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * @ORM\Table(name="Users")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("username", message="Ce pseudo est déjà utilisé")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -47,9 +51,22 @@ class User
     private $phone;
 
     /**
+     * @ORM\Column(type="string", length=6)
+     */
+    private $zip;
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $city;
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $resetToken;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles;
 
     /**
      * @ORM\Column(type="datetime")
@@ -109,6 +126,38 @@ class User
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * @param mixed $zip
+     */
+    public function setZip($zip): void
+    {
+        $this->zip = $zip;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city): void
+    {
+        $this->city = $city;
+    }
+
     public function getPassword(): ?string
     {
         return $this->password;
@@ -145,6 +194,21 @@ class User
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRoles(): ?array
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function getDateCreated(): ?\DateTimeInterface
     {
         return $this->dateCreated;
@@ -156,4 +220,8 @@ class User
 
         return $this;
     }
+
+    public function getSalt(){}
+
+    public function eraseCredentials(){}
 }
