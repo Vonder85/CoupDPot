@@ -17,7 +17,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">Mes Ventes</a>
-                        <a class="dropdown-item" href="#">Mon profil</a>
+                        <a class="dropdown-item" href="{{path('user_profile', {'id': app.user.id, 'csrf': csrf_token('user_profile_'~app.user.id)})}} ">Mon profil</a>
                         <a class="dropdown-item" href="{{ path('Deconnexion') }}">Déconnexion</a>
                     </div>
                 </li>

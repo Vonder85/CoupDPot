@@ -73,6 +73,43 @@ class UserController extends AbstractController
     public function logout(){}
 
     /**
+     * @Route("/Profil/{id}/{csrf}", name="user_profile", requirements={"id": "\d+"})
+     */
+    public function showProfile($id, $csrf, UserRepository $ur, Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $em){
+        if (!$this->isCsrfTokenValid('user_profile_' . $id, $csrf)) {
+            throw $this->createAccessDeniedException('Désolé, votre session a expiré !');
+        } else {
+            $user = $ur->find($id);
+            $profileForm = $this->createForm(RegisterType::class, $user);
+            $photoActuelle = $user->getPhoto();
+
+            $profileForm->handleRequest($request);
+            if($profileForm->isSubmitted() && $profileForm->isValid()){
+                //hasher le mot de passe
+                $hashed = $encoder->encodePassword($user, $user->getPassword());
+                $user->setPassword($hashed);
+
+                $photo = $profileForm->get('photo')->getData();
+                if ($photo) {
+                    $photoName = $this->generateUniqueFileName() . '.' . strtolower($photo->getClientOriginalExtension());
+                    $photo->move(
+                        $this->getParameter('upload_photos_profile'),
+                        $photoName
+                    );
+                    $user->setPhoto($photoName);
+                } else {
+                    $user->setPhoto($photoActuelle);
+                }
+                $em->flush();
+                $this->addFlash('success', 'Profil modifié');
+            }
+        }
+        return $this->render('user/profile.html.twig', [
+            "profileForm" => $profileForm->createView(),
+        ]);
+    }
+
+    /**
      * Méthode permettant de renvoyer un nom unique pour la photo de profil
      * @return string
      */
