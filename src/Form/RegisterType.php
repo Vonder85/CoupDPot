@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,14 +30,14 @@ class RegisterType extends AbstractType
                 'second_options' =>['label' => 'Confirmer mot de passe  ']
             ])
             ->add('phone', null,['label'=> 'Téléphone  '])
-            ->add('zip', null,['label'=> 'Code Postal   '])
-            ->add('city', ChoiceType::class,['label'=> 'Ville  ',
-                'choices' => []])
+
             ->add('photo', FileType::class, [
                 'label' => 'Photo  ',
                 'mapped' => false,
                 'required' => false,
             ])
+            ->add('zip', null,['label'=> 'Code Postal   '])
+            ->add('city', HiddenType::class, ['required' => false])
         ;
     }
 
@@ -44,6 +45,7 @@ class RegisterType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'allow_extra_fields' => true,
         ]);
     }
 }

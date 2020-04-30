@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
@@ -45,12 +46,31 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('/');
+            return $this->redirectToRoute('main_home');
         }
         return $this->render('user/register.html.twig', [
             "registerForm" => $registerForm->createView(),
         ]);
     }
+
+    /**
+     * @Route("/Connexion", name="Connexion")
+     */
+    public function login(AuthenticationUtils $au){
+        $error = $au->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $au->getLastUsername();
+
+        return $this->render('user/login.html.twig', [
+            "error" => $error,
+            "lastusername" => $lastUsername,
+        ]);
+    }
+
+    /**
+     * @Route("/Deconnexion", name="Deconnexion")
+     */
+    public function logout(){}
 
     /**
      * Méthode permettant de renvoyer un nom unique pour la photo de profil
