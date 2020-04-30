@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Inscris-toi !</h1>
+
+        {{ form_start(registerForm) }}
+        {{ form_widget(registerForm) }}
+        <button class="btn btn-warning bg-warning text-dark" type="submit">Enregistrer</button>
+        {{ form_end(registerForm) }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        // Méthode Ajax faisant appel à une l'Api du gouv pour récupérer la ville via le codePostal
+        $(document).ready(function () {
+            $('#register_zip').on("blur", function () {
+                ajaxCall();
+            });
+
+            function ajaxCall() {
+                var zip = $('#register_zip').val();
+                var ville = $('#register_city');
+
+                $.ajax({
+                    url: 'https://geo.api.gouv.fr/communes?codePostal=' + zip + '&fields=nom&format=json&geometry=centre',
+                    method: "get",
+                    dataType: "json",
+                    contentType: "application/json"
+                }).done(function (result) {
+                    $('form').find("option").val('');
+                        for (var i = 0; i < result.length; i++) {
+                            var element = $('<option></option>').text(result[i].nom);
+                            ville.append(element);
+                        }
+                })
+            }
+        })
+
+    </script>
+{% endblock %}

@@ -25,7 +25,7 @@ class UserController extends AbstractController
         $user->setRoles(['ROLE_USER']);
 
         $registerForm->handleRequest($request);
-        if($registerForm->isValid() && $registerForm->isSubmitted()){
+        if($registerForm->isSubmitted() && $registerForm->isValid() ){
             //Hasher le password
             $hashed = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hashed);
@@ -47,7 +47,7 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('/');
         }
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/register.html.twig', [
             "registerForm" => $registerForm->createView(),
         ]);
     }

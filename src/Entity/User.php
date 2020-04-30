@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\Extension\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -11,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="Users")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("username", message="Ce pseudo est déjà utilisé")
+ * @UniqueEntity("email", message="Cet email est déjà utilisé")
  */
 class User implements UserInterface
 {
