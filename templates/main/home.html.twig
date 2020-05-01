@@ -3,4 +3,11 @@
 {% block title %}Accueil | {{ parent() }}{% endblock %}
 
 {% block body %}
+    <form>
+        <input type="text" name="search" id="search">
+        <select name="couleur"></select>
+        <select name="marque"></select>
+        <label for="lieu">Région </label>
+        <select name="lieu"></select>
+    </form>
 {% endblock %}
