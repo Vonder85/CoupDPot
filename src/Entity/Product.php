@@ -171,7 +171,7 @@ class Product
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Brand", inversedBy="products")
      */
     private $brand;
 
@@ -190,5 +190,6 @@ class Product
     {
         $this->brand = $brand;
     }
+
 
 }

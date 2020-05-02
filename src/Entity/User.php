@@ -250,7 +250,6 @@ class User implements UserInterface
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->sells = new ArrayCollection();
     }
 
     /**
@@ -273,28 +272,6 @@ class User implements UserInterface
     {
         $this->products = $products;
     }
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Sell", mappedBy="user")
-     */
-    private $sells;
-
-    /**
-     * @return mixed
-     */
-    public function getSells()
-    {
-        return $this->sells;
-    }
-
-    /**
-     * @param mixed $sells
-     */
-    public function setSells($sells): void
-    {
-        $this->sells = $sells;
-    }
-
 
     public function getSalt(){}
 
