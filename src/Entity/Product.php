@@ -170,4 +170,25 @@ class Product
         $this->colour = $colour;
     }
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="products")
+     */
+    private $brand;
+
+    /**
+     * @return mixed
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+
+    /**
+     * @param mixed $brand
+     */
+    public function setBrand($brand): void
+    {
+        $this->brand = $brand;
+    }
+
 }

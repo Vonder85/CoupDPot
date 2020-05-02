@@ -3,11 +3,38 @@
 {% block title %}Accueil | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <form>
-        <input type="text" name="search" id="search">
-        <select name="couleur"></select>
-        <select name="marque"></select>
-        <label for="lieu">Région </label>
-        <select name="lieu"></select>
-    </form>
+    <div class="container">
+        <form class="form-inline mt-4">
+            <input type="text" name="search" id="search" class="mr-3 form-control" placeholder="Recherche">
+            <select name="couleur" class="custom-select custom-select-md mr-3">
+                <option value="All" selected>Toutes les couleurs</option>
+            </select>
+            <select name="marque" class="custom-select custom-select-md mr-3">
+                <option value="All" selected>Toutes les marques</option>
+            </select>
+            <select name="lieu" class="custom-select custom-select-md mr-3">
+                <option value="All" selected>Toute la France</option>
+            </select>
+            <button class="btn btn-light text-dark bouton" type="submit">Rechercher</button>
+        </form>
+
+        <div class="produits mt-5">
+            <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Cras justo odio</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 {% endblock %}
