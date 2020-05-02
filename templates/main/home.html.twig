@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <form class="form-inline mt-4">
+        <form class="form-inline mt-4 row justify-content-center">
             <input type="text" name="search" id="search" class="mr-3 form-control" placeholder="Recherche">
             <select name="couleur" class="custom-select custom-select-md mr-3">
                 <option value="All" selected>Toutes les couleurs</option>
@@ -12,10 +12,15 @@
             <select name="marque" class="custom-select custom-select-md mr-3">
                 <option value="All" selected>Toutes les marques</option>
             </select>
-            <select name="lieu" class="custom-select custom-select-md mr-3">
+            <select name="lieu" class="custom-select custom-select-md mr-3" id="regions">
                 <option value="All" selected>Toute la France</option>
             </select>
-            <button class="btn btn-light text-dark bouton" type="submit">Rechercher</button>
+            <select name="lieu" class="custom-select custom-select-md mr-3" id="departement">
+                <option value="All" selected>Tous les départements</option>
+            </select>
+            <div>
+                <button class="btn btn-light text-dark bouton pull-right" type="submit">Rechercher</button>
+            </div>
         </form>
 
         <div class="produits mt-5">
@@ -37,4 +42,64 @@
 
     </div>
 
+{% endblock %}
+{% block javascripts %}
+    <script>
+        var regions = $("#regions");
+
+        $(document).ready(function () {
+            regionsCall();
+            regions.on("mouseout", function () {
+                departementCall();
+            });
+        });
+
+        /**
+         * fonction affichant les régions via l'api
+         */
+        function regionsCall() {
+
+            $.ajax({
+                url: 'https://geo.api.gouv.fr/regions?fields=nom',
+                method: 'get',
+                dataType: "json",
+                contentType: "application/json"
+            }).done(function (result) {
+                for (var i = 0; i < result.length; i++) {
+                    var element = $('<option></option>').text(result[i].nom);
+                    regions.append(element);
+                }
+            });
+
+        }
+
+        /**
+         * fonction affichant les départements via la région sélectionnée
+         */
+        function departementCall() {
+            var region = $('#regions option:selected').text();
+            $('#departement').text('');
+            $.ajax({
+                url: 'https://geo.api.gouv.fr/regions?nom=' + region + '&fields=nom',
+                method: 'get',
+                dataType: "json",
+                contentType: "application/json"
+            }).done(function (result) {
+                var code = result[0].code;
+                $.ajax({
+                    url: 'https://geo.api.gouv.fr/departements?codeRegion=' + code + '&fields=nom',
+                    method: 'get',
+                    dataType: "json",
+                    contentType: "application/json"
+                }).done(function (res) {
+                    var tous = $('<option val="all"></option>').text("Tous les départements");
+                    $('#departement').append(tous);
+                    for (var i = 0; i < res.length; i++) {
+                        var element = $('<option></option>').text(res[i].nom + '-' + res[i].code);
+                        $('#departement').append(element);
+                    }
+                });
+            })
+        }
+    </script>
 {% endblock %}
