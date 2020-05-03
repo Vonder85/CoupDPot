@@ -17,6 +17,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             $product->setDescription("peinture dulux valentine a moitié plein");
             $product->setPrice(10);
             $product->setDateCreated(new \DateTime());
+            $product->setActive(true);
             $product->setUser($this->getReference("user".rand(0,9)));
             $product->setBrand($this->getReference("brand".rand(0,5)));
             $product->setCategory($this->getReference("category".rand(0,2)));

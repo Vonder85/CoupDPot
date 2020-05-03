@@ -54,6 +54,7 @@ class UserController extends AbstractController
     }
 
     /**
+     * permet la connexion
      * @Route("/Connexion", name="Connexion")
      */
     public function login(AuthenticationUtils $au){
@@ -68,11 +69,13 @@ class UserController extends AbstractController
     }
 
     /**
+     * permet la deconnexion
      * @Route("/Deconnexion", name="Deconnexion")
      */
     public function logout(){}
 
     /**
+     * fonction qui affiche et permet de moodifier son profil
      * @Route("/Profil/{id}/{csrf}", name="user_profile", requirements={"id": "\d+"})
      */
     public function showProfile($id, $csrf, UserRepository $ur, Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $em){

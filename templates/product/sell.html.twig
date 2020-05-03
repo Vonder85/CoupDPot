@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mettre en Vente | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Mets en vente !</h1>
+        {{ form_start(productForm) }}
+        {{ form_widget(productForm) }}
+        <button class="btn btn-light text-dark bouton float-right" type="submit">Vendre</button>
+        {{ form_end(productForm) }}
+    </div>
+{% endblock %}
