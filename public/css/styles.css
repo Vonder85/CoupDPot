@@ -4,3 +4,13 @@
 .bouton{
     background-color: #D162A2;
 }
+#listHome{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+#cardHome{
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: space-between
+}

@@ -19,6 +19,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             $product->setDateCreated(new \DateTime());
             $product->setActive(true);
             $product->setPicture(__DIR__.'/../../../CoupDPot/public/uploads/productPictures/default_product_picture.png');
+            $product->setRegion("Pays de la Loire");
+            $product->setDepartement("Vendée-85");
             $product->setUser($this->getReference("user".rand(0,9)));
             $product->setBrand($this->getReference("brand".rand(0,5)));
             $product->setCategory($this->getReference("category".rand(0,2)));

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\RechercheCriteria;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,6 +18,50 @@ class ProductRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
+    }
+
+    /**
+     * @return Product[] Returns an array of Product object
+     */
+    public function findProductsFiltered(RechercheCriteria $criteria){
+
+        $qb = $this->createQueryBuilder('p');
+        if($criteria->getSearch() != ""){
+            $qb->andWhere($qb->expr()->like('p.title', ':title'))
+                ->setParameter('title', "%".$criteria->getSearch()."%");
+        }
+        if($criteria->getColour() != null){
+            $qb->andWhere("p.colour = :colour")
+                ->setParameter('site', $criteria->getColour());
+        }
+        if($criteria->getBrand() != null){
+            $qb->andWhere("p.brand = :brand")
+                ->setParameter('brand', $criteria->getBrand());
+        }
+        if($criteria->getRegion() != "all"){
+            $qb->andWhere("p.region = :region")
+                ->setParameter('region', $criteria->getRegion());
+        }
+        if($criteria->getDepartement() != "all"){
+            $qb->andWhere("p.departement = :departement")
+                ->setParameter('departement', $criteria->getDepartement());
+        }
+        if($criteria->isInterieure()){
+            $qb->andWhere("p.category = :category")
+                ->setParameter("category", "p.category LIKE 'Peinture intérieure'");
+        }
+        if($criteria->isExterieure()){
+            $qb->andWhere("p.category = :category")
+                ->setParameter("category", "p.category LIKE 'Peinture extérieure'");
+        }
+        if($criteria->isOutils()){
+            $qb->andWhere("p.category = :category")
+                ->setParameter("category", "p.category LIKE 'Outils du peintre'");
+        }
+        $qb->join("p.colour", "co");
+        $qb->join("p.category", 'ca');
+        $qb->join("p.brand", "b");
+        $qb->Select("p.id ,p.title, p.");
     }
 
     // /**

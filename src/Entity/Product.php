@@ -47,6 +47,16 @@ class Product
      */
     private $active;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $region;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $departement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +133,39 @@ class Product
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param mixed $region
+     */
+    public function setRegion($region): void
+    {
+        $this->region = $region;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDepartement()
+    {
+        return $this->departement;
+    }
+
+    /**
+     * @param mixed $departement
+     */
+    public function setDepartement($departement): void
+    {
+        $this->departement = $departement;
+    }
+
 
 
     /**

@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <form class="form-inline mt-4 row justify-content-center">
+        <form class="form-inline mt-4 row justify-content-center" action="">
             <input type="text" name="search" id="search" class="mr-3 form-control" placeholder="Recherche">
             <select name="couleur" class="custom-select custom-select-md mr-3">
                 <option value="All" selected>Toutes les couleurs</option>
@@ -12,26 +12,26 @@
             <select name="marque" class="custom-select custom-select-md mr-3">
                 <option value="All" selected>Toutes les marques</option>
             </select>
-            <select name="lieu" class="custom-select custom-select-md mr-3" id="regions">
+            <select name="region" class="custom-select custom-select-md mr-3" id="regions">
                 <option value="All" selected>Toute la France</option>
             </select>
-            <select name="lieu" class="custom-select custom-select-md mr-3" id="departement">
+            <select name="departement" class="custom-select custom-select-md mr-3" id="departement">
                 <option value="All" selected>Toute la région</option>
             </select>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="interieure">
+                <input class="form-check-input" type="checkbox" value="" id="interieure" name="interieure">
                 <label class="form-check-label  mr-3" for="interieure">
                     Peinture Intérieure
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="exterieure">
+                <input class="form-check-input" type="checkbox" value="" id="exterieure" name="exterieure">
                 <label class="form-check-label mr-3" for="exterieure">
                     Peinture extérieure
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input " type="checkbox" value="" id="outils">
+                <input class="form-check-input " type="checkbox" value="" id="outils" name="outils">
                 <label class="form-check-label mr-3" for="outils">
                     Outils du peintre
                 </label>
@@ -41,11 +41,11 @@
             </div>
         </form>
 
-        <ul>
+        <ul id="listHome">
             {% for product in products %}
-                <li style="display: inline-block; list-style-type: none; justify-content: space-between">
+                <li id="cardHome">
                     <div class="produits mt-5">
-                        <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <div class="card shadow p-3 mb-5 bg-white rounded " style="width: 18rem;">
                             <img src="{{ product.picture }}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.title }}</h5>
