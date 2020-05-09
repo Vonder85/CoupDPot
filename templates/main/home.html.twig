@@ -5,36 +5,68 @@
 {% block body %}
     <div class="container">
         <form class="form-inline mt-4 row justify-content-center" action="">
-            <input type="text" name="search" id="search" class="mr-3 form-control" placeholder="Recherche">
+
+            {% if criteria.search != ''%}
+            <input type="text" name="search" id="search" class="mr-3 form-control" placeholder="Recherche" value="{{ criteria.search }}">{% else %}
+                <input type="text" name="search" id="search" class="mr-3 form-control" placeholder="Recherche" >
+            {% endif %}
+
             <select name="couleur" class="custom-select custom-select-md mr-3">
+                {% if criteria.colour == null %}
                 <option value="All" selected>Toutes les couleurs</option>
+                {% else %}
+                <option value="All" >Toutes les couleurs</option>
+                {% endif %}
+                {% for color in colors %}
+                    {% if criteria.colour != null and criteria.colour.id == color.id %}
+                    <option value="{{ color.id }}" selected>{{ color.name }}</option>
+                    {% else %}
+                    <option value="{{ color.id }}">{{ color.name }}</option>
+                    {% endif %}
+                {% endfor %}
             </select>
+
+
             <select name="marque" class="custom-select custom-select-md mr-3">
+                {% if criteria.brand == null %}
                 <option value="All" selected>Toutes les marques</option>
+                {% else %}
+                <option value="All">Toutes les marques</option>
+                {% endif %}
+                {% for brand in brands %}
+                {% if criteria.brand != null and criteria.brand.id == brand.id %}
+                <option value="{{ brand.id }}" selected>{{ brand.name }}</option>
+                {% else %}
+                <option value="{{ brand.id }}">{{ brand.name }}</option>
+                {% endif%}
+                {% endfor %}
             </select>
+
             <select name="region" class="custom-select custom-select-md mr-3" id="regions">
+                {% if criteria.region == "" %}
                 <option value="All" selected>Toute la France</option>
+                {% else %}
+                    <option value="All" >Toute la France</option>
+                    <option value="{{ criteria.region }}" selected>{{ criteria.region }}</option>
+                {% endif %}
             </select>
+
             <select name="departement" class="custom-select custom-select-md mr-3" id="departement">
+                {% if criteria.departement == "" %}
                 <option value="All" selected>Toute la région</option>
+                {% else %}
+                <option value="{{ criteria.departement }}" selected>{{ criteria.departement }}</option>
+                {% endif %}
             </select>
+
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="interieure" name="interieure">
-                <label class="form-check-label  mr-3" for="interieure">
-                    Peinture Intérieure
-                </label>
+                <input class="form-check-input" type="checkbox" value="" id="interieure" name="interieure" {% set coche = criteria.interieure == true? "checked" : "" %}{{ coche }}>Peinture Intérieure
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="exterieure" name="exterieure">
-                <label class="form-check-label mr-3" for="exterieure">
-                    Peinture extérieure
-                </label>
+                <input class="form-check-input" type="checkbox" value="" id="exterieure" name="exterieure" {% set coche = criteria.exterieure == true? "checked" : "" %}{{ coche }}>Peinture extérieure
             </div>
             <div class="form-check">
-                <input class="form-check-input " type="checkbox" value="" id="outils" name="outils">
-                <label class="form-check-label mr-3" for="outils">
-                    Outils du peintre
-                </label>
+                <input class="form-check-input " type="checkbox" value="" id="outils" name="outils" {% set coche = criteria.outils == true? "checked" : "" %}{{ coche }}>Outils du peintre
             </div>
             <div>
                 <button class="btn btn-light text-dark bouton pull-right" type="submit">Rechercher</button>
@@ -42,18 +74,18 @@
         </form>
 
         <ul id="listHome">
-            {% for product in products %}
+            {% for annonce in annonces %}
                 <li id="cardHome">
                     <div class="produits mt-5">
                         <div class="card shadow p-3 mb-5 bg-white rounded " style="width: 18rem;">
-                            <img src="{{ product.picture }}" class="card-img-top" alt="...">
+                            <img src="{{ annonce.picture }}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">{{ product.title }}</h5>
-                                <p class="card-text">{{ product.description }}</p>
+                                <h5 class="card-title">{{ annonce.title }}</h5>
+                                <p class="card-text">{{ annonce.description }}</p>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">{{ product.brand.name }}</li>
-                                <li class="list-group-item">{{ product.price }}</li>
+                                <li class="list-group-item">{{ annonce.brandname }}</li>
+                                <li class="list-group-item">{{ annonce.price }}</li>
                             </ul>
                             <div class="card-body">
                                 <a href="#" class="card-link">Card link</a>

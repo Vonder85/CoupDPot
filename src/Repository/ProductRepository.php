@@ -32,17 +32,17 @@ class ProductRepository extends ServiceEntityRepository
         }
         if($criteria->getColour() != null){
             $qb->andWhere("p.colour = :colour")
-                ->setParameter('site', $criteria->getColour());
+                ->setParameter('colour', $criteria->getColour());
         }
         if($criteria->getBrand() != null){
             $qb->andWhere("p.brand = :brand")
                 ->setParameter('brand', $criteria->getBrand());
         }
-        if($criteria->getRegion() != "all"){
+        if($criteria->getRegion() != "All"){
             $qb->andWhere("p.region = :region")
                 ->setParameter('region', $criteria->getRegion());
         }
-        if($criteria->getDepartement() != "all"){
+        if($criteria->getDepartement() != "All"){
             $qb->andWhere("p.departement = :departement")
                 ->setParameter('departement', $criteria->getDepartement());
         }
@@ -61,7 +61,8 @@ class ProductRepository extends ServiceEntityRepository
         $qb->join("p.colour", "co");
         $qb->join("p.category", 'ca');
         $qb->join("p.brand", "b");
-        $qb->Select("p.id ,p.title, p.");
+        $qb->Select("p.id ,p.title, p.description, p.price, p.picture, p.dateCreated, p.active, p.region, p.departement, co.name as colourname, ca.name as categoryname, b.name as brandname");
+        return $qb->getQuery()->execute();
     }
 
     // /**

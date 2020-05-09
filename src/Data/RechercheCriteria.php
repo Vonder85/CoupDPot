@@ -65,7 +65,7 @@ class RechercheCriteria{
     /**
      * @return Colour
      */
-    public function getColour(): Colour
+    public function getColour(): ?Colour
     {
         return $this->colour;
     }
@@ -81,7 +81,7 @@ class RechercheCriteria{
     /**
      * @return Brand
      */
-    public function getBrand(): Brand
+    public function getBrand(): ?Brand
     {
         return $this->brand;
     }
@@ -97,7 +97,7 @@ class RechercheCriteria{
     /**
      * @return string
      */
-    public function getRegion(): string
+    public function getRegion(): ?string
     {
         return $this->region;
     }
@@ -113,7 +113,7 @@ class RechercheCriteria{
     /**
      * @return string
      */
-    public function getDepartement(): string
+    public function getDepartement(): ?string
     {
         return $this->departement;
     }
