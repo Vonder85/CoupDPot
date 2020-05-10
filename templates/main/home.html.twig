@@ -6,22 +6,23 @@
     <div class="container">
         <form class="form-inline mt-4 row justify-content-center" action="">
 
-            {% if criteria.search != ''%}
-            <input type="text" name="search" id="search" class="mr-3 form-control" placeholder="Recherche" value="{{ criteria.search }}">{% else %}
-                <input type="text" name="search" id="search" class="mr-3 form-control" placeholder="Recherche" >
+            {% if criteria.search != '' %}
+                <input type="text" name="search" id="search" class="mr-3 form-control" placeholder="Recherche"
+                       value="{{ criteria.search }}">{% else %}
+                <input type="text" name="search" id="search" class="mr-3 form-control" placeholder="Recherche">
             {% endif %}
 
             <select name="couleur" class="custom-select custom-select-md mr-3">
                 {% if criteria.colour == null %}
-                <option value="All" selected>Toutes les couleurs</option>
+                    <option value="All" selected>Toutes les couleurs</option>
                 {% else %}
-                <option value="All" >Toutes les couleurs</option>
+                    <option value="All">Toutes les couleurs</option>
                 {% endif %}
                 {% for color in colors %}
                     {% if criteria.colour != null and criteria.colour.id == color.id %}
-                    <option value="{{ color.id }}" selected>{{ color.name }}</option>
+                        <option value="{{ color.id }}" selected>{{ color.name }}</option>
                     {% else %}
-                    <option value="{{ color.id }}">{{ color.name }}</option>
+                        <option value="{{ color.id }}">{{ color.name }}</option>
                     {% endif %}
                 {% endfor %}
             </select>
@@ -29,44 +30,50 @@
 
             <select name="marque" class="custom-select custom-select-md mr-3">
                 {% if criteria.brand == null %}
-                <option value="All" selected>Toutes les marques</option>
+                    <option value="All" selected>Toutes les marques</option>
                 {% else %}
-                <option value="All">Toutes les marques</option>
+                    <option value="All">Toutes les marques</option>
                 {% endif %}
                 {% for brand in brands %}
-                {% if criteria.brand != null and criteria.brand.id == brand.id %}
-                <option value="{{ brand.id }}" selected>{{ brand.name }}</option>
-                {% else %}
-                <option value="{{ brand.id }}">{{ brand.name }}</option>
-                {% endif%}
+                    {% if criteria.brand != null and criteria.brand.id == brand.id %}
+                        <option value="{{ brand.id }}" selected>{{ brand.name }}</option>
+                    {% else %}
+                        <option value="{{ brand.id }}">{{ brand.name }}</option>
+                    {% endif %}
                 {% endfor %}
             </select>
 
             <select name="region" class="custom-select custom-select-md mr-3" id="regions">
                 {% if criteria.region == "" %}
-                <option value="All" selected>Toute la France</option>
+                    <option value="All" selected>Toute la France</option>
                 {% else %}
-                    <option value="All" >Toute la France</option>
+                    <option value="All">Toute la France</option>
                     <option value="{{ criteria.region }}" selected>{{ criteria.region }}</option>
                 {% endif %}
             </select>
 
             <select name="departement" class="custom-select custom-select-md mr-3" id="departement">
                 {% if criteria.departement == "" %}
-                <option value="All" selected>Toute la région</option>
+                    <option value="All" selected>Toute la région</option>
                 {% else %}
-                <option value="{{ criteria.departement }}" selected>{{ criteria.departement }}</option>
+                    <option value="{{ criteria.departement }}" selected>{{ criteria.departement }}</option>
                 {% endif %}
             </select>
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="interieure" name="interieure" {% set coche = criteria.interieure == true? "checked" : "" %}{{ coche }}>Peinture Intérieure
+                <input class="form-check-input" type="checkbox" value="" id="interieure"
+                       name="interieure" {% set coche = criteria.interieure == true? "checked" : "" %}{{ coche }}>Peinture
+                Intérieure
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="exterieure" name="exterieure" {% set coche = criteria.exterieure == true? "checked" : "" %}{{ coche }}>Peinture extérieure
+                <input class="form-check-input" type="checkbox" value="" id="exterieure"
+                       name="exterieure" {% set coche = criteria.exterieure == true? "checked" : "" %}{{ coche }}>Peinture
+                extérieure
             </div>
             <div class="form-check">
-                <input class="form-check-input " type="checkbox" value="" id="outils" name="outils" {% set coche = criteria.outils == true? "checked" : "" %}{{ coche }}>Outils du peintre
+                <input class="form-check-input " type="checkbox" value="" id="outils"
+                       name="outils" {% set coche = criteria.outils == true? "checked" : "" %}{{ coche }}>Outils du
+                peintre
             </div>
             <div>
                 <button class="btn btn-light text-dark bouton pull-right" type="submit">Rechercher</button>
@@ -74,26 +81,26 @@
         </form>
 
         <ul id="listHome">
-            {% for annonce in annonces %}
-                <li id="cardHome">
-                    <div class="produits mt-5">
-                        <div class="card shadow p-3 mb-5 bg-white rounded " style="width: 18rem;">
-                            <img src="{{ annonce.picture }}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ annonce.title }}</h5>
-                                <p class="card-text">{{ annonce.description }}</p>
+                {% for annonce in annonces %}
+                        <li id="cardHome">
+                            <div class="produits mt-5">
+                                <div class="card shadow p-3 mb-5 bg-white rounded " style="width: 18rem;">
+                                    <img src="{{ annonce.picture }}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ annonce.title }}</h5>
+                                        <p class="card-text">{{ annonce.description }}</p>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">{{ annonce.brandname }}</li>
+                                        <li class="list-group-item">{{ annonce.price }}</li>
+                                    </ul>
+                                    <div class="card-body">
+                                        <a href="#" class="card-link">Card link</a>
+                                    </div>
+                                </div>
                             </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">{{ annonce.brandname }}</li>
-                                <li class="list-group-item">{{ annonce.price }}</li>
-                            </ul>
-                            <div class="card-body">
-                                <a href="#" class="card-link">Card link</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            {% endfor %}
+                        </li>
+                {% endfor %}
         </ul>
     </div>
 
@@ -147,7 +154,7 @@
                     dataType: "json",
                     contentType: "application/json"
                 }).done(function (res) {
-                    var tous = $('<option val="all"></option>').text("Tous les départements");
+                    var tous = $('<option value="All"></option>').text("Toute la région");
                     $('#departement').append(tous);
                     for (var i = 0; i < res.length; i++) {
                         var element = $('<option></option>').text(res[i].nom + '-' + res[i].code);

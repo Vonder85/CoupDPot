@@ -24,6 +24,7 @@ class MainController extends AbstractController
     {
         $criteria = $this->buildCriteria($req, $em);
         $annonces = $em->getRepository(Product::class)->findProductsFiltered($criteria);
+        $products = $em->getRepository(Product::class)->findAll();
         dump($criteria);
         $colors = $em->getRepository(Colour::class)->findAll();
         $brands = $em->getRepository(Brand::class)->findAll();
@@ -32,7 +33,8 @@ class MainController extends AbstractController
             "criteria" => $criteria,
             "annonces" => $annonces,
             "brands" => $brands,
-            "colors" => $colors
+            "colors" => $colors,
+            "products" => $products
         ]);
     }
 

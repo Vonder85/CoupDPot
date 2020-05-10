@@ -38,11 +38,11 @@ class ProductRepository extends ServiceEntityRepository
             $qb->andWhere("p.brand = :brand")
                 ->setParameter('brand', $criteria->getBrand());
         }
-        if($criteria->getRegion() != "All"){
+        if($criteria->getRegion() != ""){
             $qb->andWhere("p.region = :region")
                 ->setParameter('region', $criteria->getRegion());
         }
-        if($criteria->getDepartement() != "All"){
+        if($criteria->getDepartement() != ""){
             $qb->andWhere("p.departement = :departement")
                 ->setParameter('departement', $criteria->getDepartement());
         }
