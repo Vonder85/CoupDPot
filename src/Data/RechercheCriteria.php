@@ -32,19 +32,9 @@ class RechercheCriteria{
     public $departement = "";
 
     /**
-     * @var boolean
+     * @var Category
      */
-    public $interieure = false;
-
-    /**
-     * @var boolean
-     */
-    public $exterieure = false;
-
-    /**
-     * @var boolean
-     */
-    public $outils = false;
+    public $category = null;
 
     /**
      * @return string
@@ -127,52 +117,22 @@ class RechercheCriteria{
     }
 
     /**
-     * @return bool
+     * @return Category
      */
-    public function isInterieure(): bool
+    public function getCategory(): ?Category
     {
-        return $this->interieure;
+        return $this->category;
     }
 
     /**
-     * @param bool $interieure
+     * @param Category $category
      */
-    public function setInterieure(bool $interieure): void
+    public function setCategory(Category $category): void
     {
-        $this->interieure = $interieure;
+        $this->category = $category;
     }
 
-    /**
-     * @return bool
-     */
-    public function isExterieure(): bool
-    {
-        return $this->exterieure;
-    }
 
-    /**
-     * @param bool $exterieure
-     */
-    public function setExterieure(bool $exterieure): void
-    {
-        $this->exterieure = $exterieure;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isOutils(): bool
-    {
-        return $this->outils;
-    }
-
-    /**
-     * @param bool $outils
-     */
-    public function setOutils(bool $outils): void
-    {
-        $this->outils = $outils;
-    }
 
 
 

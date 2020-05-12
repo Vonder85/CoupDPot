@@ -43,6 +43,21 @@
                 {% endfor %}
             </select>
 
+            <select name="categorie" class="custom-select custom-select-md mr-3">
+                {% if criteria.category == null %}
+                    <option value="All" selected>Toutes les catégories</option>
+                {% else %}
+                    <option value="All">Toutes les catégories</option>
+                {% endif %}
+                {% for categorie in categories %}
+                    {% if criteria.category != null and criteria.category.id == categorie.id %}
+                        <option value="{{ categorie.id }}" selected>{{ categorie.name }}</option>
+                    {% else %}
+                        <option value="{{ categorie.id }}">{{ categorie.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
             <select name="region" class="custom-select custom-select-md mr-3" id="regions">
                 {% if criteria.region == "" %}
                     <option value="All" selected>Toute la France</option>
@@ -60,21 +75,7 @@
                 {% endif %}
             </select>
 
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="interieure"
-                       name="interieure" {% set coche = criteria.interieure == true? "checked" : "" %}{{ coche }}>Peinture
-                Intérieure
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="exterieure"
-                       name="exterieure" {% set coche = criteria.exterieure == true? "checked" : "" %}{{ coche }}>Peinture
-                extérieure
-            </div>
-            <div class="form-check">
-                <input class="form-check-input " type="checkbox" value="" id="outils"
-                       name="outils" {% set coche = criteria.outils == true? "checked" : "" %}{{ coche }}>Outils du
-                peintre
-            </div>
+
             <div>
                 <button class="btn btn-light text-dark bouton pull-right" type="submit">Rechercher</button>
             </div>

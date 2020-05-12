@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Data\RechercheCriteria;
+use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -15,9 +17,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
     {
         parent::__construct($registry, Product::class);
+
     }
 
     /**
@@ -46,17 +49,9 @@ class ProductRepository extends ServiceEntityRepository
             $qb->andWhere("p.departement = :departement")
                 ->setParameter('departement', $criteria->getDepartement());
         }
-        if($criteria->isInterieure()){
+        if($criteria->getCategory() != null){
             $qb->andWhere("p.category = :category")
-                ->setParameter("category", "p.category LIKE 'Peinture intérieure'");
-        }
-        if($criteria->isExterieure()){
-            $qb->andWhere("p.category = :category")
-                ->setParameter("category", "p.category LIKE 'Peinture extérieure'");
-        }
-        if($criteria->isOutils()){
-            $qb->andWhere("p.category = :category")
-                ->setParameter("category", "p.category LIKE 'Outils du peintre'");
+                ->setParameter('category', $criteria->getCategory());
         }
         $qb->join("p.colour", "co");
         $qb->join("p.category", 'ca');

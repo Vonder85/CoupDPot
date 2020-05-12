@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Data\RechercheCriteria;
 use App\Entity\Brand;
+use App\Entity\Category;
 use App\Entity\Colour;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Expr\Isset_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,13 +30,15 @@ class MainController extends AbstractController
         dump($criteria);
         $colors = $em->getRepository(Colour::class)->findAll();
         $brands = $em->getRepository(Brand::class)->findAll();
+        $categorys = $em->getRepository(Category::class)->findAll();
         dump($annonces);
         return $this->render('main/home.html.twig', [
             "criteria" => $criteria,
             "annonces" => $annonces,
             "brands" => $brands,
             "colors" => $colors,
-            "products" => $products
+            "products" => $products,
+            "categories" => $categorys
         ]);
     }
 
@@ -61,6 +65,15 @@ class MainController extends AbstractController
                 $criteria->setBrand($marque);
             }
         }
+        if($req->query->get('categorie') != "" && $req->query->get('categorie') != null){
+            if($req->query->get('categorie') == "All"){
+
+            }else{
+                $idCategory = $req->query->get('categorie');
+                $category = $em->getRepository(Category::class)->find($idCategory);
+                $criteria->setCategory($category);
+            }
+        }
 
         if($req->query->get('region') != "" && $req->query->get('region') != null) {
             if ($req->query->get('region') == "All") {
@@ -73,15 +86,6 @@ class MainController extends AbstractController
             } else {
                 $criteria->setDepartement($req->query->get('departement'));
             }
-        }
-        if($req->query->get('interieure')){
-            $criteria->setInterieure(true);
-        }
-        if($req->query->get('exterieure')){
-            $criteria->setExterieure(true);
-        }
-        if($req->query->get('outils')){
-            $criteria->setOutils(true);
         }
 
         return $criteria;
