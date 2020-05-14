@@ -33,6 +33,7 @@
             function ajaxCall() {
                 var zip = $('#register_zip').val();
                 var ville = $('#register_ville');
+                ville.text('');
                 $.ajax({
                     url: 'https://geo.api.gouv.fr/communes?codePostal=' + zip + '&fields=nom&format=json&geometry=centre',
                     method: "get",

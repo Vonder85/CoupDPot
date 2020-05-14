@@ -42,12 +42,27 @@ class ProductController extends AbstractController
                 $product->setPicture('default_product_picture.png');
             }
 
+
             $em->persist($product);
             $em->flush();
+            $this->addFlash("succes", "Votre vente est en cours de vérification par nos équipes. Elle sera en ligne dans les plus brefs délais");
+            return $this->redirectToRoute('main_home');
         }
 
         return $this->render('product/sell.html.twig', [
             "productForm" => $productForm->createView(),
+        ]);
+    }
+
+    /**
+     * Affiche un produit
+     * @Route("/{id}", name="show", requirements={"id": "\d+"})
+     */
+    public function showProduct($id, ProductRepository $pr){
+        $product = $pr->find($id);
+
+        return $this->render('product/show.html.twig', [
+            "product" => $product,
         ]);
     }
 

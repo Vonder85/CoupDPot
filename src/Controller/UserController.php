@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegisterType;
+use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -109,6 +110,18 @@ class UserController extends AbstractController
         }
         return $this->render('user/profile.html.twig', [
             "profileForm" => $profileForm->createView(),
+        ]);
+    }
+
+    /**
+     * Renvoit la page de ses ventes
+     * @Route("/MesVentes", name="user_sells")
+     */
+    public function mySells(ProductRepository $pr){
+        $products = $pr->findProductsOfOneUser($this->getUser()->getId());
+        dump($products);
+        return $this->render('user/mySells.html.twig', [
+            "products"=>$products
         ]);
     }
 

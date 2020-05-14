@@ -60,6 +60,16 @@ class ProductRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
+    /**
+     * fonction qui recupère les articles d'un utilisateur donné
+     */
+    public function findProductsOfOneUser(int $idUser){
+        $qb = $this->createQueryBuilder('p');
+        $qb->andWhere('p.user = :user')
+            ->setParameter("user", $idUser);
+        return $qb->getQuery()->execute();
+           }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

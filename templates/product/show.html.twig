@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mettre en Vente | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+        <div class="mt-5 col-9">
+            <div class="card shadow p-3 mb-5 bg-white rounded " style="width: 50rem;">
+                <img src="{{ asset('uploads/productPictures/'~product.picture) | imagine_filter('my_thumb') }}" class="card-img-top" alt="Photo du produit">                <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ product.brand.name }}</li>
+                    <li class="list-group-item">{{ product.price }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-5 col-3">
+            <div class="card shadow p-3 mb-5 bg-white rounded " style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.user.username }}</h5>
+                    <p class="card-text">{{ product.user.email }}</p>
+                    <p class="card-text">{{ product.user.phone }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ product.user.city }}</li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

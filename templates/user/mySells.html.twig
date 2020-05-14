@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Mes ventes !</h1>
+        <ul id="mySells">
+            {% for product in products %}
+                <a href="{{ path("product_show", {'id': product.id})}}" style="text-decoration: none; color:black;">
+                    <li id="cardHome">
+                        <div class="produits mt-5">
+                            <div class="card shadow p-3 mb-5 bg-white rounded " style="width: 18rem;">
+                                <img src="{{ asset('uploads/productPictures/'~product.picture) | imagine_filter('my_thumb') }}" class="card-img-top" alt="Photo du produit">                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.title }}</h5>
+                                    <p class="card-text">{{ product.description }}</p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">{{ product.brand.name }}</li>
+                                    <li class="list-group-item">{{ product.price }}</li>
+                                </ul>
+                                <div class="card-body">
+                                    <a href="#" class="card-link">Modifier</a>
+                                    <a href="#" class="card-link">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </a>
+            {% endfor %}
+        </ul>
+
+    </div>
+{% endblock %}
+
+
