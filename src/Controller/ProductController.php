@@ -28,6 +28,7 @@ class ProductController extends AbstractController
         $product->setUser($this->getUser());
 
         $productForm->handleRequest($request);
+
         if($productForm->isSubmitted() && $productForm->isValid()){
             $photo = $productForm->get('picture')->getData();
             if($photo){
